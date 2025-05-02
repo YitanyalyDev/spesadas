@@ -1,32 +1,46 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('whatsapp-button'); 
-    const productName = document.getElementById('name-product'); // Nombre del producto
-    const linkProduct = document.getElementById('link-product'); // Link personalizado del producto
-    const productCategory = document.getElementById('product-category'); // Elemento que contiene la categoría
-
-    if (submitButton && productName) {
-        submitButton.addEventListener('click', function () {
-            // Determinar el número según la categoría
-            let phoneNumber;
-            if (productCategory && productCategory.textContent.toLowerCase().includes('repuestos')) {
-                phoneNumber = '573106615819';
-            } else {
-                phoneNumber = '573128522568'; 
-            }
-            
-            const product = productName.textContent.trim(); 
-            
-            let currentUrl = window.location.href;
-            if (linkProduct && linkProduct.textContent.trim() !== '') {
-                currentUrl = linkProduct.textContent.trim();
-            }
-
-            const message = `Buen día, estoy interesado en el producto: ${product}. Aquí vi el producto: ${currentUrl}`;
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-            window.open(url, '_blank');
-        });
-    } else {
-        console.warn("Botón o nombre del producto no encontrados.");
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceElement = document.getElementById('service'); // Elemento que contiene el tipo de servicio
+    
+    if (serviceElement) {
+        const serviceType = serviceElement.textContent.trim().toLowerCase();
+        let phoneNumber;
+        let serviceName;
+        
+        // Asignar número y nombre legible según categoría
+        switch(true) {
+            case serviceType.includes('mantenimiento') || serviceType.includes('reparacion') || serviceType.includes('soporte'):
+                phoneNumber = '573105234085'; // Número para Soporte/Mantenimiento/Reparación
+                serviceName = 'Soporte, mantenimiento o reparación';
+                break;
+            case serviceType.includes('repuesto'):
+                phoneNumber = '573106615819'; // Número para Repuestos
+                serviceName = 'Repuestos';
+                break;
+            case serviceType.includes('maquinaria'):
+                phoneNumber = '573128522568'; // Número para Maquinaria
+                serviceName = 'Maquinaria';
+                break;
+            case serviceType.includes('alquiler'):
+                phoneNumber = '573128522568'; // Número para Alquiler
+                serviceName = 'Alquiler';
+                break;
+            default:
+                phoneNumber = '573106615819'; // Número por defecto
+                serviceName = 'servicio'; // Nombre genérico
+        }
+        
+        // Crear mensaje estándar
+        const message = `Buen día, llegué desde la página web para consultar sobre ${serviceName}, agradezco su ayuda`;
+        
+        // Redireccionar a WhatsApp (ejemplo con botón)
+        const whatsappButton = document.getElementById('whatsapp-button');
+        if (whatsappButton) {
+            whatsappButton.addEventListener('click', function() {
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            });
+        }
+        
+        // Opcional: Mostrar en consola para debug
+        console.log('Servicio detectado:', serviceType, '→ Número asignado:', phoneNumber);
     }
 });
