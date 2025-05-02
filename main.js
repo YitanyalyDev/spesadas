@@ -2,15 +2,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('whatsapp-button'); 
     const productName = document.getElementById('name-product'); // Nombre del producto
     const linkProduct = document.getElementById('link-product'); // Link personalizado del producto
+    const productCategory = document.getElementById('product-category'); // Elemento que contiene la categoría
 
     if (submitButton && productName) {
         submitButton.addEventListener('click', function () {
-            const phoneNumber = '573112135011'; 
+            // Determinar el número según la categoría
+            let phoneNumber;
+            if (productCategory && productCategory.textContent.toLowerCase().includes('repuestos')) {
+                phoneNumber = '573106615819';
+            } else {
+                phoneNumber = '573128522568'; 
+            }
+            
             const product = productName.textContent.trim(); 
             
-            let currentUrl = window.location.href; // Valor por defecto
+            let currentUrl = window.location.href;
             if (linkProduct && linkProduct.textContent.trim() !== '') {
-                currentUrl = linkProduct.textContent.trim(); // Usamos el link-product si existe y no está vacío
+                currentUrl = linkProduct.textContent.trim();
             }
 
             const message = `Buen día, estoy interesado en el producto: ${product}. Aquí vi el producto: ${currentUrl}`;
