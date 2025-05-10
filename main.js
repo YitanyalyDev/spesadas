@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 phoneNumber = '573106615819'; // Número para Repuestos
                 serviceName = 'Repuestos';
                 break;
-            case serviceType.includes('maquinaria'):
+            case serviceType.includes('maquinaria')|| serviceType.includes('venta') || serviceType.includes('venta de maquinaria'):
                 phoneNumber = '573128522568'; // Número para Maquinaria
                 serviceName = 'Maquinaria';
                 break;
